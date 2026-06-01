@@ -4,7 +4,7 @@ if (-not $isAdmin) {
     if ($PSCommandPath) {
         Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
     } else {
-        Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `"& { `$(irm 'https://raw.githubusercontent.com/mashan16/scripts/main/Windows/win11_classic_menu.ps1') } ; Read-Host 'Press Enter to exit'`""
+        Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `"Invoke-Expression (Invoke-RestMethod 'https://raw.githubusercontent.com/mashan16/scripts/main/Windows/win11_classic_menu.ps1')`""
     }
     return
 }
