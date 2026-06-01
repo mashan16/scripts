@@ -22,4 +22,3 @@ Start-Sleep -Seconds 1
 Start-Process explorer
 
 Write-Host "=== Done! ===" -ForegroundColor Green
-Read-Host "Press Enter to exit"
