@@ -1,8 +1,13 @@
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
 if (-not $isAdmin) {
-    Write-Host "ERROR: Run PowerShell as Administrator!" -ForegroundColor Red
-    Read-Host "Press Enter to exit"
+    if ($PSCommandPath) {
+        # Запуск из файла — перезапускаем файл с правами админа
+        Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+    } else {
+        # Запуск через irm | iex — перезапускаем с URL
+        Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `"& { `$(irm 'https://raw.githubusercontent.com/mashan16/scripts/main/Windows/win11_classic_menu.ps1') } ; Read-Host 'Press Enter to exit'`""
+    }
     return
 }
 
@@ -19,3 +24,4 @@ Start-Sleep -Seconds 1
 Start-Process explorer
 
 Write-Host "=== Done! ===" -ForegroundColor Green
+Read-Host "Press Enter to exit"
