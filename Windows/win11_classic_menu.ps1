@@ -2,6 +2,7 @@ $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIden
 
 if (-not $isAdmin) {
     Write-Host "ERROR: Run PowerShell as Administrator!" -ForegroundColor Red
+    Read-Host "Press Enter to exit"
     return
 }
 
