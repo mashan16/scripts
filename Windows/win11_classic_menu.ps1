@@ -22,3 +22,7 @@ Start-Sleep -Seconds 1
 Start-Process explorer
 
 Write-Host "=== Done! ===" -ForegroundColor Green
+
+if ($PSCommandPath) {
+    Read-Host "Press Enter to exit"
+}
