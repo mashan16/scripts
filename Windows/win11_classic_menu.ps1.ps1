@@ -9,6 +9,7 @@ Write-Host "Ключ реестра создан." -ForegroundColor Green
 
 Write-Host "=== Перезапуск проводника ===" -ForegroundColor Cyan
 Stop-Process -Name explorer -Force
+Start-Sleep -Seconds 2
 Start-Process explorer
 
 Write-Host "=== Готово! ===" -ForegroundColor Green
