@@ -1,8 +1,8 @@
-# Проверка прав администратора
-if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host "Запусти скрипт от имени администратора!" -ForegroundColor Red
-    pause
-    exit
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if (-not $isAdmin) {
+    Write-Host "ОШИБКА: Запусти PowerShell от имени администратора!" -ForegroundColor Red
+    exit 1
 }
 
 Write-Host "=== Создание ключа реестра: Классическое контекстное меню Windows 11 ===" -ForegroundColor Cyan
