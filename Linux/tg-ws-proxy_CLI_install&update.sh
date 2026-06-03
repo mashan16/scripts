@@ -38,8 +38,16 @@ python3 -m venv --help &>/dev/null || MISSING_PKGS+=("python3-venv")
 
 if [ ${#MISSING_PKGS[@]} -gt 0 ]; then
     echo -e "${YELLOW}Устанавливаем: ${MISSING_PKGS[*]}${NC}"
-    apt-get update -qq
-    apt-get install -y "${MISSING_PKGS[@]}"
+    if command -v apt-get &>/dev/null; then
+        apt-get update -qq && apt-get install -y "${MISSING_PKGS[@]}"
+    elif command -v dnf &>/dev/null; then
+        dnf install -y "${MISSING_PKGS[@]}"
+    elif command -v yum &>/dev/null; then
+        yum install -y "${MISSING_PKGS[@]}"
+    else
+        echo -e "${RED}Ошибка: установите вручную: ${MISSING_PKGS[*]}${NC}"
+        exit 1
+    fi
     echo -e "${GREEN}Зависимости установлены.${NC}"
 else
     echo -e "${GREEN}Все зависимости присутствуют.${NC}"
