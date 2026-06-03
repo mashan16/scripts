@@ -178,6 +178,11 @@ fi
 echo ""
 echo -e "${YELLOW}[6/7] Создаём systemd-сервис...${NC}"
 
+# Сохраняем secret в отдельный файл с ограниченными правами (не виден в systemctl cat)
+ENV_FILE="/etc/tg-ws-proxy-${LATEST_VERSION}.env"
+echo "TG_SECRET=${SECRET}" > "$ENV_FILE"
+chmod 600 "$ENV_FILE"
+
 cat > "$SERVICE_FILE" << EOF
 [Unit]
 Description=tg-ws-proxy ${LATEST_VERSION}
@@ -188,7 +193,8 @@ Type=simple
 User=root
 Group=root
 WorkingDirectory=${INSTALL_DIR}/
-ExecStart=${INSTALL_DIR}/venv/bin/python proxy/tg_ws_proxy.py --host 0.0.0.0 --port ${PORT} --secret ${SECRET}
+EnvironmentFile=/etc/tg-ws-proxy-${LATEST_VERSION}.env
+ExecStart=${INSTALL_DIR}/venv/bin/python proxy/tg_ws_proxy.py --host 0.0.0.0 --port ${PORT} --secret \$TG_SECRET
 Restart=on-failure
 
 [Install]
