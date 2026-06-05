@@ -85,7 +85,7 @@ SERVICE_FILE="/etc/systemd/system/tg-ws-proxy-${LATEST_VERSION}.service"
 if [ -d "$INSTALL_DIR" ] && [ -f "$SERVICE_FILE" ]; then
     echo -e "${YELLOW}Версия ${LATEST_VERSION} уже установлена в ${INSTALL_DIR}${NC}"
     echo -n "Переустановить? (y/n): "
-    read -r REINSTALL
+    read -r REINSTALL </dev/tty
     if [ "$REINSTALL" != "y" ]; then
         echo "Выход."
         exit 0
@@ -109,7 +109,7 @@ echo ""
 
 while true; do
     echo -n "Введите secret (32 hex-символа, без префикса dd): "
-    read -r SECRET
+    read -r SECRET </dev/tty
 
     # Проверяем что secret не пустой и содержит ровно 32 hex-символа
     if [[ "$SECRET" =~ ^[0-9a-fA-F]{32}$ ]]; then
@@ -133,7 +133,7 @@ fi
 
 while true; do
     echo -n "Введите порт для новой версии (например 1084): "
-    read -r PORT
+    read -r PORT </dev/tty
 
     # Проверяем что порт — число в диапазоне 1024-65535
     if [[ "$PORT" =~ ^[0-9]+$ ]] && [ "$PORT" -ge 1024 ] && [ "$PORT" -le 65535 ]; then
