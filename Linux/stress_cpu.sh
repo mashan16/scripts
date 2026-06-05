@@ -44,7 +44,7 @@ done
 # Проверка наличия stress-ng
 if ! command -v stress-ng &> /dev/null; then
     echo -e "${GREEN}Установка stress-ng...${NC}"
-    sudo apt update && sudo apt install -y stress-ng || {
+    apt update && apt install -y stress-ng || {
         echo -e "${RED}Ошибка установки stress-ng${NC}"
         exit 1
     }
