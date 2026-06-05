@@ -12,7 +12,7 @@ Bash и PowerShell скрипты для администрирования се
 curl -s https://raw.githubusercontent.com/mashan16/scripts/main/Linux/install_update_tg_ws_proxy.sh | bash
 ```
 
-**stress_cpu.sh** — искусственная нагрузка на CPU через `stress-ng`. Параметры: количество ядер (`-c`), процент нагрузки (`-p`), длительность в секундах (`-t`), файл лога (`-l`). При отсутствии `stress-ng` устанавливает его автоматически.
+**stress_cpu.sh** — искусственная нагрузка на CPU через `stress-ng`. Без аргументов запускается в интерактивном режиме. Параметры: количество ядер (`-c`), процент нагрузки (`-p`), длительность в секундах (`-t`), файл лога (`-l`). При отсутствии `stress-ng` устанавливает его автоматически.
 
 ```bash
 curl -s https://raw.githubusercontent.com/mashan16/scripts/main/Linux/stress_cpu.sh | bash
