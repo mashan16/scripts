@@ -1,0 +1,11 @@
+РџРѕРёСЃРє "Connecting to local system..." РІ *.txt РЅР° СѓРєР°Р·Р°РЅРЅС‹С… РџРљ 
+---------------------------------------------------- 
+[localhost] 
+
+PsExec v2.43 - Execute processes remotely
+Copyright (C) 2001-2023 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+Connecting to localhost...Couldn't access localhost:
+Неверный дескриптор.
+Connecting to localhost... 
