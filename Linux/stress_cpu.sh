@@ -41,6 +41,21 @@ while getopts ":c:p:t:l:h" opt; do
     esac
 done
 
+# Интерактивный режим если аргументы не переданы
+if [ $# -eq 0 ]; then
+    TOTAL_CORES=$(nproc)
+    echo -e "${GREEN}Доступно ядер: ${YELLOW}${TOTAL_CORES}${NC}"
+
+    read -rp "Количество ядер для нагрузки [1-${TOTAL_CORES}] (Enter = ${CORES}): " INPUT
+    [ -n "$INPUT" ] && CORES="$INPUT"
+
+    read -rp "Процент нагрузки на ядро [1-100] (Enter = ${PERCENT}): " INPUT
+    [ -n "$INPUT" ] && PERCENT="$INPUT"
+
+    read -rp "Длительность в секундах (Enter = ${DURATION}): " INPUT
+    [ -n "$INPUT" ] && DURATION="$INPUT"
+fi
+
 # Проверка наличия stress-ng
 if ! command -v stress-ng &> /dev/null; then
     echo -e "${GREEN}Установка stress-ng...${NC}"
