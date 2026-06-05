@@ -22,6 +22,20 @@ curl -s https://raw.githubusercontent.com/mashan16/scripts/main/Linux/stress_cpu
 
 ## Windows
 
-**Windows 11 classic menu** — возвращает классическое контекстное меню при нажатии правой кнопки мыши.
+### PowerShell (.ps1)
+
+Запускаются через PowerShell напрямую или скачиваются вручную.
+
+**win11_classic_menu.ps1** — возвращает классическое контекстное меню Windows 11 при нажатии правой кнопки мыши.
+
+```powershell
+irm https://raw.githubusercontent.com/mashan16/scripts/main/Windows/win11_classic_menu.ps1 | iex
+```
+
+### Batch (.bat)
+
+Только для ручного скачивания и запуска — выполнение через командную строку.
 
 **PC_Reboot.bat** — принудительная перезагрузка по таймеру (30 сек) с возможностью отменить нажав 1.
+
+**disk_usage_auto_clean.bat** *(archive)* — автоматическая очистка дискового пространства.
