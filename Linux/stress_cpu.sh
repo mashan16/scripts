@@ -46,13 +46,13 @@ if [ $# -eq 0 ]; then
     TOTAL_CORES=$(nproc)
     echo -e "${GREEN}Доступно ядер: ${YELLOW}${TOTAL_CORES}${NC}"
 
-    read -rp "Количество ядер для нагрузки [1-${TOTAL_CORES}] (Enter = ${CORES}): " INPUT
+    read -rp "Количество ядер для нагрузки [1-${TOTAL_CORES}] (Enter = ${CORES}): " INPUT </dev/tty
     [ -n "$INPUT" ] && CORES="$INPUT"
 
-    read -rp "Процент нагрузки на ядро [1-100] (Enter = ${PERCENT}): " INPUT
+    read -rp "Процент нагрузки на ядро [1-100] (Enter = ${PERCENT}): " INPUT </dev/tty
     [ -n "$INPUT" ] && PERCENT="$INPUT"
 
-    read -rp "Длительность в секундах (Enter = ${DURATION}): " INPUT
+    read -rp "Длительность в секундах (Enter = ${DURATION}): " INPUT </dev/tty
     [ -n "$INPUT" ] && DURATION="$INPUT"
 fi
 
