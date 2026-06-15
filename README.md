@@ -51,6 +51,12 @@ irm https://raw.githubusercontent.com/mashan16/scripts/main/Windows/win11_classi
 
 Только для ручного скачивания и запуска — выполнение через командную строку cmd или powershell.
 
-### **PC_Reboot.bat** — принудительная перезагрузка по таймеру (30 сек) с возможностью отменить нажав 1.
+### **PC_Reboot.bat**
 
-### **disk_usage_auto_clean.bat** *(archive)* — автоматическая очистка дискового пространства.
+Принудительная перезагрузка по таймеру (30 сек) с возможностью отменить нажав 1.
+[Скачать](https://raw.githubusercontent.com/mashan16/scripts/main/Windows/PC_Reboot.bat)
+
+### **disk_usage_auto_clean.bat** *(archive)*
+
+Автоматическая очистка дискового пространства.
+[Скачать](https://raw.githubusercontent.com/mashan16/scripts/main/Windows/archive/disk_usage_auto_clean.bat)
