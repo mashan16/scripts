@@ -26,6 +26,18 @@ curl -s https://raw.githubusercontent.com/mashan16/scripts/main/Linux/stress_cpu
 
 Запускаются через PowerShell напрямую или скачиваются вручную.
 
+**install-zabbix-agent.ps1** — установка и переустановка Zabbix Agent 2. Автоматически определяет последнюю версию, настраивает режим мониторинга (Active/Passive/Оба), открывает порт 10050. При повторном запуске обнаруживает установленный агент и предлагает переустановить.
+
+```powershell
+irm https://raw.githubusercontent.com/mashan16/scripts/main/Windows/install-zabbix-agent.ps1 | iex
+```
+
+> **Windows Server 2016:** PowerShell 5.1 использует TLS 1.0 по умолчанию, из-за чего `irm` не может подключиться к GitHub. Перед запуском выполните:
+>
+> ```powershell
+> [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+> ```
+
 **win11_classic_menu.ps1** — возвращает классическое контекстное меню Windows 11 при нажатии правой кнопки мыши.
 
 ```powershell
