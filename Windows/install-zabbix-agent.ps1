@@ -12,6 +12,46 @@ Write-Info "    Установщик Zabbix Agent 2 (Windows)"
 Write-Info "============================================"
 Write-Host ""
 
+# --- Обнаружение установленного агента ---
+$InstalledEntry = Get-ChildItem "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
+                                "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall" `
+    -ErrorAction SilentlyContinue |
+    Get-ItemProperty -ErrorAction SilentlyContinue |
+    Where-Object { $_.DisplayName -like "Zabbix Agent 2*" } |
+    Select-Object -First 1
+
+if ($InstalledEntry) {
+    $InstalledVersion = $InstalledEntry.DisplayVersion
+    Write-Host "Обнаружен установленный Zabbix Agent 2:" -ForegroundColor Yellow
+    Write-Host "  Версия:  $InstalledVersion" -ForegroundColor Cyan
+
+    $ConfPath = "C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf"
+    if (Test-Path $ConfPath) {
+        $CurrentServer = (Select-String -Path $ConfPath -Pattern '^Server=(.+)' | Select-Object -First 1).Matches.Groups[1].Value
+        if ($CurrentServer) { Write-Host "  Сервер:  $CurrentServer" -ForegroundColor Cyan }
+    }
+
+    Write-Host ""
+    $Confirm = Read-Host "Переустановить? [y/N]"
+    if ($Confirm -ne "y") {
+        Write-Host "Отмена." -ForegroundColor DarkGray
+        exit 0
+    }
+
+    Write-Host "Останавливаем сервис..." -ForegroundColor Yellow
+    Stop-Service -Name "Zabbix Agent 2" -Force -ErrorAction SilentlyContinue
+
+    Write-Host "Удаляем агент..." -ForegroundColor Yellow
+    $ProductCode = $InstalledEntry.PSChildName
+    $unProc = Start-Process msiexec.exe -ArgumentList "/x `"$ProductCode`" /qn" -Wait -PassThru -NoNewWindow
+    if ($unProc.ExitCode -ne 0) {
+        Write-Err "Не удалось удалить агент (код $($unProc.ExitCode))"
+        exit 1
+    }
+    Write-Ok "Агент удалён. Продолжаем установку..."
+    Write-Host ""
+}
+
 # --- Адрес сервера ---
 do {
     $ZabbixServer = Read-Host "Адрес Zabbix сервера (IP или hostname)"
@@ -38,9 +78,12 @@ Write-Step 1 5 "Определяем последнюю версию Zabbix Agen
 
 try {
     $Page = Invoke-WebRequest -Uri "https://www.zabbix.com/download_agents" -UseBasicParsing -TimeoutSec 15
-    $Match = [regex]::Match($Page.Content, 'zabbix_agent2-([\d]+\.[\d]+\.[\d]+)-windows-amd64')
-    if (-not $Match.Success) { throw "Версия не найдена в HTML" }
-    $Version = $Match.Groups[1].Value
+    $Matches2 = [regex]::Matches($Page.Content, 'zabbix_agent2-([\d]+\.[\d]+\.[\d]+)-windows-amd64')
+    if ($Matches2.Count -eq 0) { throw "Версия не найдена в HTML" }
+    $Version = $Matches2 |
+        ForEach-Object { $_.Groups[1].Value } |
+        Sort-Object { [version]$_ } |
+        Select-Object -Last 1
     Write-Ok "Последняя версия: $Version"
 } catch {
     Write-Host "Не удалось определить версию автоматически: $_" -ForegroundColor Red
