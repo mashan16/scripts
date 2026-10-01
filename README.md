@@ -22,6 +22,15 @@ curl -s https://raw.githubusercontent.com/mashan16/scripts/main/Linux/install_up
 curl -s https://raw.githubusercontent.com/mashan16/scripts/main/Linux/stress_cpu.sh | bash
 ```
 
+### **immich-update.sh**
+
+ Обновление Immich (self-hosted фото и видео). Обновляет пакеты ОС, бэкапит и подтягивает свежий docker-compose.yml из последнего релиза, обновляет образы, перезапускает контейнеры и чистит старые образы Docker. Шаги выводятся в терминал, при ошибке скрипт останавливается. Запуск из любого места: immich-update. Debian/Ubuntu, требует root.
+
+```
+curl -s https://raw.githubusercontent.com/mashan16/scripts/main/Linux/immich-update.sh | bash
+```
+
+
 ---
 
 ## Windows
