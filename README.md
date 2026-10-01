@@ -2,6 +2,8 @@
 
 Bash,PowerShell,Bath скрипты для Windows и GNU\Linux.
 
+Скрипты написаны и проверены на Debian, работоспособность на других дистибитивах GNU\Linux не гарантируется
+
 ---
 
 ## Linux
